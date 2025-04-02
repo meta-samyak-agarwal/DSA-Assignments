@@ -1,6 +1,8 @@
+
 import java.util.Scanner;
 
 class Node {
+
     int data;
     Node next;
 
@@ -11,6 +13,7 @@ class Node {
 }
 
 class LinkedList {
+
     Node head;
 
     void insert(int data) {
@@ -35,67 +38,82 @@ class LinkedList {
         System.out.println("null");
     }
 
-   void solve(int L , int R , int N){
+    void solve(int L, int R, int N) {
+        if (head == null || L > R) {
+            return;
+        }
+
         Node dummy = new Node(0);
-        Node start = dummy;
-        Node end = dummy;
+        dummy.next = head;
+        Node preSublist = dummy;
 
-        Node left = dummy.next ;
-        Node right = dummy.next;
-
-        for(int i=1; i<L ;i++){
-            left = left.next;
+        //  start of the sublist
+        for (int i = 1; i < L; i++) {
+            preSublist = preSublist.next;
         }
 
-        start = left.next;
+        Node sublistStart = preSublist.next;
+        Node sublistEnd = sublistStart;
 
-        for(int i=1;i<R ;i++){
-            right = right.next;
+        //   end of the sublist
+        for (int i = L; i < R; i++) {
+            sublistEnd = sublistEnd.next;
         }
 
-        end = right.next;
+        Node postSublist = sublistEnd.next;     // if at the end then it will be null
 
-        
+        int length = R - L + 1;
+        N = N % length;
 
-        while(N > 0){
-
-            right.next = end.next;
-
-            end.next = start;
-            left.next = end;
-            solve(L, R, R);
-
-            N--;
+        if (N == 0) {
+            return;   // simple
         }
-        
+        Node KK = sublistStart;
+        Node preKK = preSublist;
 
-   }
+        for (int i = 0; i < (length - N); i++) {
+            preKK = KK;
+            KK = KK.next;
+        }
+
+        preSublist.next = KK;
+        sublistEnd.next = sublistStart;
+        preKK.next = postSublist;
+
+        if (L == 1) {
+            head = KK;
+        }
+
+    }
+
 }
 
 public class Assignment1 {
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter the number of elements in the linked list:");
-        int n = scanner.nextInt();
+        while (true) {
+            System.out.println("Enter the number of elements in the linked list:");
+            int n = sc.nextInt();
 
-        System.out.println("Enter the elements:");
-        for (int i = 0; i < n; i++) {
-            int data = scanner.nextInt();
-            list.insert(data);
+            System.out.println("Enter the elements:");
+            for (int i = 0; i < n; i++) {
+                int data = sc.nextInt();
+                list.insert(data);
+            }
+
+            System.out.println("Enter L (start position), R (end position), and N (number of rotations):");
+            int L = sc.nextInt();
+            int R = sc.nextInt();
+            int N = sc.nextInt();
+
+            list.solve(L, R, N);
+
+            System.out.println("Modified Linked List:");
+            list.display();
         }
 
-        System.out.println("Enter L (start position), R (end position), and N (number of rotations):");
-        int L = scanner.nextInt();
-        int R = scanner.nextInt();
-        int N = scanner.nextInt();
-
-        list.solve(L, R, N);
-
-        System.out.println("Modified Linked List:");
-        list.display();
-
-        scanner.close();
     }
 }
