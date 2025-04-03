@@ -66,20 +66,55 @@ class CircularQueue implements Queue {
 // Test the CircularQueue implementation
 public class Assignemnt2 {
     public static void main(String[] args) {
-        CircularQueue queue = new CircularQueue(5); // Create a queue with size 5
+         Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the size of the queue: ");
+        int size = scanner.nextInt();
 
-        queue.enqueue(10);
-        queue.enqueue(20);
-        queue.enqueue(30);
-        queue.enqueue(40);
-        queue.enqueue(50);
+        CircularQueue queue = new CircularQueue(size);
 
-        // Try adding an element to a full queue
-        queue.enqueue(60);
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Enqueue");
+            System.out.println("2. Dequeue");
+            System.out.println("3. Check if queue is empty");
+            System.out.println("4. Check if queue is full");
+            System.out.println("5. Print queue");
+            System.out.println("6. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
 
-        queue.dequeue();
-        queue.dequeue();
-        queue.enqueue(60); // Add after dequeueing
-        queue.dequeue();
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the element to enqueue: ");
+                    int item = scanner.nextInt();
+                    queue.enqueue(item);
+                    break;
+
+                case 2:
+                    queue.dequeue();
+                    break;
+
+                case 3:
+                    System.out.println("Queue is " + (queue.isEmpty() ? "empty" : "not empty"));
+                    break;
+
+                case 4:
+                    System.out.println("Queue is " + (queue.isFull() ? "full" : "not full"));
+                    break;
+
+                case 5:
+                    queue.print();
+                    break;
+
+                case 6:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+
     }
 }
