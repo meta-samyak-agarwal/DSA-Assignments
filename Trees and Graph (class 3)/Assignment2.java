@@ -105,6 +105,9 @@ class Assignment2 {
                     pq.print();
                      
                     break;
+
+                case 4:
+                    return;
             
                 default:
                     
