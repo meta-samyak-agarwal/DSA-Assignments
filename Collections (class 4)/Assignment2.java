@@ -1,21 +1,33 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 class Assignment2 {
 
     // Cache to store previously computed results
     private static Map<String, Integer> cacheMap = new HashMap<>();
+    private static Set<Character> set = new HashSet<>();
 
     // Method to calculate the number of unique characters
     public static int calculateUniqueCharacters(String input) {
+
+        set = new HashSet<>();
+
         if (cacheMap.containsKey(input)) {
             System.out.println("Result retrieved from cache.");
             return cacheMap.get(input);
         }
 
+        for(char ch : input.toCharArray()){
+            if(ch == ' ') continue;
+            else 
+            set.add(ch);
+        }
+
         // Calculate unique characters  -> (we avoid the hashset here)
-        int uniqueCount = (int) input.chars().distinct().count();
+        int uniqueCount = set.size();
 
         // Store the result in cache
         cacheMap.put(input, uniqueCount);
