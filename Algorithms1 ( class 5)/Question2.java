@@ -1,3 +1,4 @@
+// employee constructor
 class Employee{
      String name;
      int age;
@@ -10,6 +11,7 @@ class Employee{
     }
 }
 
+// modified constructor of Node
 class Node{
     Employee e ;
     Node next;
@@ -23,6 +25,7 @@ class Node{
 
 class Question2{
 
+     // insertion sort in a linked-List
     public static Node insertionSort(Node head){
         Employee temp1 = new Employee(null, 0, 0);
         Node dummy = new Node(temp1, null);
@@ -31,10 +34,11 @@ class Question2{
             
             Node temp = dummy;
             while(temp.next != null  &&
-             (temp.next.e.salary < head.e.salary || (temp.next.e.salary == head.e.salary  && temp.next.e.age < head.e.age))){
+             (temp.next.e.salary > head.e.salary || (temp.next.e.salary == head.e.salary  && temp.next.e.age < head.e.age))){
                 temp = temp.next;
             }
 
+             // connections 
             Node forward = head.next;
             head.next = temp.next;
             temp.next = head;
