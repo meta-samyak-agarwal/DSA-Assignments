@@ -1,5 +1,6 @@
 import java.util.*;
 
+// constructor for Pair
 class Pair {
     int key;
     String value;
@@ -10,7 +11,7 @@ class Pair {
     }
 }
 
-// Node class for the BST
+// Node class for the BST 
 class Node {
     Pair data;
     Node left, right;
@@ -84,6 +85,7 @@ class BSTDictionary {
         return root;
     }
 
+    // inorder-successor 
     private Node minValueNode(Node node) {
         while (node.left != null) {
             node = node.left;
@@ -97,6 +99,7 @@ class BSTDictionary {
         return node != null ? node.data.value : null;
     }
 
+    // helper function for searching in a BST
     private Node search(Node root, int key) {
         if (root == null || root.data.key == key) {
             return root;
@@ -114,6 +117,7 @@ class BSTDictionary {
         return result;
     }
 
+    // recursive function to find the inorder traversal ( left  -- data -- right ) 
     private void inorder(Node node, List<Pair> result) {
         if (node != null) {
             inorder(node.left, result);
